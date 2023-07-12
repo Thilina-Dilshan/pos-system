@@ -62,6 +62,12 @@ main > section:first-child {
     cursor: pointer;
 }
 
+.out-of-stock {
+    background: #ee610b;
+    color: white;
+    padding: 5px;
+    border-radius: 8px;
+}
 
 #frm-order button {
     min-width: 130px;
