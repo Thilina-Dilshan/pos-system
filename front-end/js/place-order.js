@@ -260,4 +260,3 @@ function setDateTime() {
     orderDateTimeElm.text(now);
 }
 
-

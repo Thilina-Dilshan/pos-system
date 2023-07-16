@@ -9,7 +9,6 @@
 
 export const REST_API_BASE_URL = 'http://localhost:8080/pos/';
 
-
 export function showProgress(xhr){
     const progressBar =  $("#progress-bar");
     xhr.addEventListener('loadstart', ()=> progressBar.width('5%'));
