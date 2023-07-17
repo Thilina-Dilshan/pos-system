@@ -1,9 +1,6 @@
 package lk.ijse.dep10.pos.dao.util;
 
-import lk.ijse.dep10.pos.entity.Customer;
-import lk.ijse.dep10.pos.entity.Item;
-import lk.ijse.dep10.pos.entity.Order;
-import lk.ijse.dep10.pos.entity.OrderCustomer;
+import lk.ijse.dep10.pos.entity.*;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -35,6 +32,14 @@ public class Mappers {
         int id = rs.getInt("id");
         Timestamp datetime = rs.getTimestamp("datetime");
         return new Order(id, datetime);
+    };
+
+    public static final RowMapper<OrderDetail> ORDER_DETAIL_ROW_MAPPER = (rs, rowNum) -> {
+        int orderId = rs.getInt("order_id");
+        String itemCode = rs.getString("item_code");
+        BigDecimal unitPrice = rs.getBigDecimal("unit_price");
+        int qty = rs.getInt("qty");
+        return new OrderDetail(orderId, itemCode, unitPrice, qty);
     };
 
 }
