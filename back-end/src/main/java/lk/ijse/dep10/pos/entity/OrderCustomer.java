@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderCustomer{
+public class OrderCustomer implements SuperEntity {
     private int orderId;
     private int customerId;
 }

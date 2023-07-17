@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDetail {
+public class OrderDetail implements SuperEntity {
     private OrderDetailPK orderDetailPK;
     private BigDecimal unitPrice;
     private int qty;

@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order{
+public class Order implements SuperEntity {
     private int id;
     private Timestamp datetime;
 
