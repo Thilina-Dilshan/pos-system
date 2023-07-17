@@ -259,4 +259,3 @@ function setDateTime() {
     const now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     orderDateTimeElm.text(now);
 }
-
