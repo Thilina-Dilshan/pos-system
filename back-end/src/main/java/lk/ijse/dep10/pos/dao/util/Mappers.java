@@ -2,6 +2,7 @@ package lk.ijse.dep10.pos.dao.util;
 
 import lk.ijse.dep10.pos.entity.Customer;
 import lk.ijse.dep10.pos.entity.Item;
+import lk.ijse.dep10.pos.entity.OrderCustomer;
 
 import java.math.BigDecimal;
 
@@ -20,6 +21,12 @@ public class Mappers {
         int qty = rs.getInt("qty");
         BigDecimal unitPrice = rs.getBigDecimal("unit_price");
         return new Item(code, description, qty, unitPrice);
+    };
+
+    public static final RowMapper<OrderCustomer> ORDER_CUSTOMER_ROW_MAPPER = (rs, rowNum) -> {
+        int orderId = rs.getInt("order_id");
+        int customerId = rs.getInt("customer_id");
+        return new OrderCustomer(orderId, customerId);
     };
 
 }
