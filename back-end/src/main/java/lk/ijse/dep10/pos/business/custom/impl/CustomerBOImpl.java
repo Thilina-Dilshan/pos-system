@@ -49,8 +49,7 @@ public class CustomerBOImpl implements CustomerBO {
             }
 
             if (!customerDAO.existsById(customerDTO.getId()))
-                throw new BusinessException(BusinessExceptionType.RECORD_NOT_FOUND,
-                        "Update failed: Customer ID: " + customerDTO.getId() + " does not exist");
+                throw new BusinessException(BusinessExceptionType.RECORD_NOT_FOUND, "Update failed: Customer ID: " + customerDTO.getId() + " does not exist");
 
             customerDAO.update(transformer.toCustomerEntity(customerDTO));
         }
@@ -67,8 +66,7 @@ public class CustomerBOImpl implements CustomerBO {
             }
 
             if (!customerDAO.existsById(customerId))
-                throw new BusinessException(BusinessExceptionType.RECORD_NOT_FOUND,
-                        "Delete failed: Customer ID: " + customerId + " does not exist");
+                throw new BusinessException(BusinessExceptionType.RECORD_NOT_FOUND, "Delete failed: Customer ID: " + customerId + " does not exist");
 
 
             customerDAO.deleteById(customerId);
@@ -80,10 +78,7 @@ public class CustomerBOImpl implements CustomerBO {
         try (Connection connection = dataSource.getConnection()) {
             customerDAO.setConnection(connection);
 
-            return customerDAO.findCustomerByIdOrContact(idOrContact)
-                    .map(transformer::fromCustomerEntity)
-                    .orElseThrow(() -> new BusinessException(BusinessExceptionType.RECORD_NOT_FOUND,
-                            "No customer record is associated with the id or contact: " + idOrContact));
+            return customerDAO.findCustomerByIdOrContact(idOrContact).map(transformer::fromCustomerEntity).orElseThrow(() -> new BusinessException(BusinessExceptionType.RECORD_NOT_FOUND, "No customer record is associated with the id or contact: " + idOrContact));
         }
     }
 
@@ -92,8 +87,7 @@ public class CustomerBOImpl implements CustomerBO {
         try (Connection connection = dataSource.getConnection()) {
             customerDAO.setConnection(connection);
 
-            return customerDAO.findCustomers(query).stream()
-                    .map(transformer::fromCustomerEntity).collect(Collectors.toList());
+            return customerDAO.findCustomers(query).stream().map(transformer::fromCustomerEntity).collect(Collectors.toList());
         }
     }
 }
