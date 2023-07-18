@@ -22,6 +22,8 @@ class DAOFactoryTest {
         OrderDAO orderDAO = DAOFactory.getInstance().getDAO(DAOType.ORDER);
         OrderDetailDAO orderDetailDAO = DAOFactory.getInstance().getDAO(DAOType.ORDER_DETAIL);
         OrderCustomerDAO orderCustomerDAO = DAOFactory.getInstance().getDAO(DAOType.ORDER_CUSTOMER);
+        QueryDAO queryDAO = DAOFactory.getInstance().getDAO(DAOType.QUERY);
+
 
         /* Verify */
         assertNotNull(customerDAO);
@@ -29,5 +31,6 @@ class DAOFactoryTest {
         assertNotNull(orderDAO);
         assertNotNull(orderDetailDAO);
         assertNotNull(orderCustomerDAO);
+        assertNotNull(queryDAO);
     }
 }
