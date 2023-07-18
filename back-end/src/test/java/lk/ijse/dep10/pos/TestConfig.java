@@ -13,6 +13,7 @@ public class TestConfig {
         EmbeddedDatabaseBuilder edb = new EmbeddedDatabaseBuilder();
         return edb.setType(EmbeddedDatabaseType.H2)
                 .addScript("/schema.sql")
+                .addScript("/test-data.sql")
                 .build();
     }
 }
