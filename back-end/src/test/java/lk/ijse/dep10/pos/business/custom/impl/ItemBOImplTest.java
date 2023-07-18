@@ -5,6 +5,7 @@ import lk.ijse.dep10.pos.TestConfig;
 import lk.ijse.dep10.pos.business.BOFactory;
 import lk.ijse.dep10.pos.business.BOType;
 import lk.ijse.dep10.pos.business.custom.ItemBO;
+import lk.ijse.dep10.pos.business.exception.BusinessException;
 import lk.ijse.dep10.pos.dto.ItemDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringJUnitConfig(classes = TestConfig.class)
 class ItemBOImplTest {
@@ -36,6 +38,7 @@ class ItemBOImplTest {
                 BigDecimal.valueOf(faker.number()
                         .randomDouble(2, 200, 500)));
 
-        assertDoesNotThrow(()->itemBO.saveItem(itemDTO));
+        assertDoesNotThrow(() -> itemBO.saveItem(itemDTO));
+        assertThrows(BusinessException.class, ()->itemBO.saveItem(itemDTO));
     }
 }
