@@ -58,4 +58,31 @@ class OrderBOImplTest {
             }
         }
     }
+
+    @Test
+    void placeOrderTest2() {
+        /* Exercise */
+        CustomerDTO fakeCustomer = new CustomerDTO(1, "Nuwan",
+                "Matara", "055-2222222");
+        ArrayList<ItemDTO> itemList = new ArrayList<>();
+        itemList.add(new ItemDTO("123456", "Test Item 1", 5,
+                new BigDecimal("1250.00")));
+        itemList.add(new ItemDTO("456789", "Test Item 2", 5,
+                new BigDecimal("2250.00")));
+        OrderDTO orderDTO = new OrderDTO(fakeCustomer, LocalDateTime.now(), itemList);
+
+        /* Verify */
+        try {
+            Integer orderId = orderBO.placeOrder(orderDTO);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            if (e instanceof BusinessException){
+                BusinessException be = (BusinessException) e;
+                assertEquals(BusinessExceptionType.INTEGRITY_VIOLATION, be.getType());
+            }else{
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
 }
