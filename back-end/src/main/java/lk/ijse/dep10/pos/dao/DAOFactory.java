@@ -25,6 +25,8 @@ public class DAOFactory {
                 return (T) new OrderDetailDAOImpl();
             case ORDER_CUSTOMER:
                 return (T) new OrderCustomerDAOImpl();
+            case QUERY:
+                return (T) new QueryDAOImpl();
             default:
                 throw new RuntimeException("Invalid DAO Type");
         }
