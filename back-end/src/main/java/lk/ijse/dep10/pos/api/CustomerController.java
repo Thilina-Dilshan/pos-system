@@ -7,8 +7,9 @@ import lk.ijse.dep10.pos.dto.CustomerDTO;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/customers")
@@ -26,10 +27,26 @@ public class CustomerController {
     }
 
     @PatchMapping("/{customerId}")
-    public ResponseEntity<?> updateCustomer(@PathVariable("customerId") int customerId,
-                                            @RequestBody CustomerDTO customer) {
-        return null;
+    public void updateCustomer(@PathVariable("customerId") Integer customerId,
+                               @RequestBody CustomerDTO customer) throws Exception {
+        CustomerBO customerBO = BOFactory.getInstance().getBO(BOType.CUSTOMER, pool);
+        customer.setId(customerId);
+        customerBO.updateCustomer(customer);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{customerId}")
+    public void deleteCustomer(@PathVariable("customerId") Integer customerId) throws Exception {
+        CustomerBO customerBO = BOFactory.getInstance().getBO(BOType.CUSTOMER, pool);
+        customerBO.deleteCustomerById(customerId);
+    }
+
+    @GetMapping
+    public List<CustomerDTO> getCustomers(@RequestParam(value = "q", required = false)
+                                          String query) throws Exception {
+        if (query == null) query = "";
+        CustomerBO customerBO = BOFactory.getInstance().getBO(BOType.CUSTOMER, pool);
+        return customerBO.findCustomers(query);
+    }
 
 }
