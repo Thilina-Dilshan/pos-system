@@ -2,6 +2,7 @@ package lk.ijse.dep10.pos.business;
 
 import lk.ijse.dep10.pos.business.custom.impl.CustomerBOImpl;
 import lk.ijse.dep10.pos.business.custom.impl.ItemBOImpl;
+import lk.ijse.dep10.pos.business.custom.impl.OrderBOImpl;
 
 import javax.sql.DataSource;
 
@@ -22,6 +23,8 @@ public class BOFactory {
                 return (T) new CustomerBOImpl(dataSource);
             case ITEM:
                 return (T) new ItemBOImpl(dataSource);
+            case ORDER:
+                return (T) new OrderBOImpl(dataSource);
             default:
                 throw new RuntimeException("Invalid BOType");
         }
