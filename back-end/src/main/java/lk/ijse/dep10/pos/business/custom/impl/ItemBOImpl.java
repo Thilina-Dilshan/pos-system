@@ -1,6 +1,8 @@
 package lk.ijse.dep10.pos.business.custom.impl;
 
 import lk.ijse.dep10.pos.business.custom.ItemBO;
+import lk.ijse.dep10.pos.business.exception.BusinessException;
+import lk.ijse.dep10.pos.business.exception.BusinessExceptionType;
 import lk.ijse.dep10.pos.business.util.Transformer;
 import lk.ijse.dep10.pos.dao.DAOFactory;
 import lk.ijse.dep10.pos.dao.DAOType;
@@ -11,7 +13,6 @@ import lk.ijse.dep10.pos.dto.ItemDTO;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ItemBOImpl implements ItemBO {
@@ -30,6 +31,9 @@ public class ItemBOImpl implements ItemBO {
         try (Connection connection = dataSource.getConnection()) {
             itemDAO.setConnection(connection);
 
+            if (itemDAO.existsById(itemDTO.getCode())) throw new BusinessException(BusinessExceptionType.DUPLICATE_RECORD,
+                    "Save failed: Item code: " + itemDTO.getCode() + " already exists");
+
             itemDAO.save(transformer.toItemEntity(itemDTO));
         }
     }
@@ -38,6 +42,10 @@ public class ItemBOImpl implements ItemBO {
     public void updateItem(ItemDTO itemDTO) throws Exception {
         try (Connection connection = dataSource.getConnection()) {
             itemDAO.setConnection(connection);
+
+            if (!itemDAO.existsById(itemDTO.getCode()))
+                throw new BusinessException(BusinessExceptionType.RECORD_NOT_FOUND,
+                        "Update failed: Item code: " + itemDTO.getCode() + " does not exist");
 
             itemDAO.update(transformer.toItemEntity(itemDTO));
         }
@@ -49,16 +57,24 @@ public class ItemBOImpl implements ItemBO {
             itemDAO.setConnection(connection);
             orderDetailDAO.setConnection(connection);
 
+            if (orderDetailDAO.existsOrderDetailByItemCode(itemCode)) throw new BusinessException(BusinessExceptionType.INTEGRITY_VIOLATION,
+                    "Delete failed: Item code: " + itemCode + " already associated with some orders");
+
+            if (!itemDAO.existsById(itemCode))
+                throw new BusinessException(BusinessExceptionType.RECORD_NOT_FOUND,
+                        "Delete failed: Item code: " + itemCode + " does not exist");
+
             itemDAO.deleteById(itemCode);
         }
     }
 
     @Override
-    public Optional<ItemDTO> findItemByCode(String itemCode) throws Exception {
+    public ItemDTO findItemByCode(String itemCode) throws Exception {
         try (Connection connection = dataSource.getConnection()) {
             itemDAO.setConnection(connection);
 
-            return itemDAO.findById(itemCode).map(transformer::fromItemEntity);
+            return itemDAO.findById(itemCode).map(transformer::fromItemEntity).orElseThrow(()-> new BusinessException(BusinessExceptionType.RECORD_NOT_FOUND,
+                    "No item record found for the code: " + itemCode));
         }
     }
 
