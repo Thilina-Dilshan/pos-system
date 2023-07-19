@@ -34,6 +34,7 @@ public class CustomerController {
         return customerBO.saveCustomer(customer);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{customerId}")
     public void updateCustomer(@PathVariable("customerId") Integer customerId,
                                @RequestBody CustomerDTO customer) throws Exception {

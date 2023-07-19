@@ -28,18 +28,18 @@ public class ItemController {
         return itemBO.findItemByCode(itemCode);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(consumes = "application/json")
-    public void saveItem(@RequestBody @Validated(ValidationGroups.Save.class) ItemDTO item) throws Exception {
-        ItemBO itemBO = BOFactory.getInstance().getBO(BOType.ITEM, pool);
-        itemBO.saveItem(item);
-    }
-
     @GetMapping
     public List<ItemDTO> getItems(@RequestParam(value = "q", required = false) String query) throws Exception {
         if (query == null) query = "";
         ItemBO itemBO = BOFactory.getInstance().getBO(BOType.ITEM, pool);
         return itemBO.findItems(query);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(consumes = "application/json")
+    public void saveItem(@RequestBody @Validated(ValidationGroups.Save.class) ItemDTO item) throws Exception {
+        ItemBO itemBO = BOFactory.getInstance().getBO(BOType.ITEM, pool);
+        itemBO.saveItem(item);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
