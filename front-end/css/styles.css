@@ -72,3 +72,66 @@ main {
     background-color: dodgerblue;
     z-index: 9999999;
 }
+
+.sub-div-1 {
+    width: 100%;
+    height: fit-content ;
+    background-color: white;
+    border-left: 1px solid grey;
+    border-bottom: 1px solid grey;
+    border-right: 1px solid grey;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.sub-div-2 {
+    width: 100%;
+    height: fit-content ;
+    background-color: white;
+    border-left: 1px solid grey;
+    border-bottom: 1px solid grey;
+    border-right: 1px solid grey;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.sub-div-3 {
+    width: 100%;
+    height: fit-content ;
+    background-color: white;
+    border-left: 1px solid grey;
+    border-bottom: 1px solid grey;
+    border-right: 1px solid grey;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.sub-div-4 {
+    width: 100%;
+    height: fit-content ;
+    background-color: white;
+    border-left: 1px solid grey;
+    border-bottom: 1px solid grey;
+    border-right: 1px solid grey;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#card-1 {
+    width: 370px;
+    height: 150px;
+    background-color: lightskyblue;
+    background-image: url("/img/items.jpg");
+    background-size: cover;
+    color: black;
+
+}
+
+#card-m-1 {
+    transition-property: all;
+    transition-duration: 500ms;
+}
+
+#card-m-1:hover {
+    scale: 1.1;
+}

@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>POS System</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/home.css">
     <script defer src="node_modules/jquery/dist/jquery.min.js"></script>
@@ -72,8 +73,36 @@
         </ul>
     </div>
 </nav>
-<main>
 
+<main class="" >
+    <div class="d-flex ps-5">
+        <h1 class="m-2 ps-5">Dashboard <span class="badge badge-secondary p-3">New</span></h1>
+    </div>
+
+    <div id="dashboard-list" class="d-flex gap-4 p-2 flex-wrap justify-content-center">
+
+        <!-- Item div-->
+        <div id="card-m-1" class="rounded d-flex flex-column justify-content-center">
+            <div id="card-1" class="d-flex justify-content-between p-2">
+                <span class="material-symbols-outlined h1" style="font-size: 100px; color: white"  >order_play </span>
+
+            </div>
+            <div class="sub-div-1 p-2 d-flex justify-content-between">
+                <div class="d-flex flex-column p-2">
+                    <h2 id="items" class="align-self-start">46</h2>
+                    <h3 class="card-title">Total Items</h3>
+                </div>
+                <a href="./manage-items.html" class="nav-link">
+                    <button style="height: 100%" id="btn-1" class="btn btn-light" data-bs-toggle="modal"
+                            data-bs-target="#low-stock-modal">Show More >
+                    </button>
+                </a>
+            </div>
+        </div>
+
+
+    </div>
 </main>
+
 </body>
 </html>
