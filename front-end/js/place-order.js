@@ -7,7 +7,7 @@ import {getBillDesignHTML} from "./bill-design.js";
 /* Module Level Variables, Constants */
 
 const REST_API_BASE_URL = 'http://localhost:8080/pos/api/v1';
-const WS_API_BASE_URL = 'ws://localhost:8080/pos';
+const WS_API_BASE_URL = 'ws://localhost:8080/pos/api/v1';
 const orderDateTimeElm = $("#order-date-time");
 const tbodyElm = $("#tbl-order tbody");
 const tFootElm = $("#tbl-order tfoot");
