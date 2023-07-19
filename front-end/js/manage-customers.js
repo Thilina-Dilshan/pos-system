@@ -10,7 +10,7 @@ const btnSave = $("#btn-save");
 
 tbodyElm.empty();
 
-function formatCustomerId(id) {
+export function formatCustomerId(id) {
     return `C${id.toString().padStart(3, '0')}`;
 }
 
