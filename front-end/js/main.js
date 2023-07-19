@@ -8,6 +8,8 @@
 })();
 
 export const REST_API_BASE_URL = 'http://localhost:8080/pos/api/v1';
+export const WS_API_BASE_URL = 'ws://localhost:8080/pos/api/v1';
+
 
 export function showProgress(xhr){
     const progressBar =  $("#progress-bar");
