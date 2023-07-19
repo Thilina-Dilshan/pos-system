@@ -135,3 +135,60 @@ main {
 #card-m-1:hover {
     scale: 1.1;
 }
+
+#card-2 {
+    width: 400px;
+    height: 150px;
+    background-color: lightgreen;
+    background-image: url("/img/customers.jpg");
+    background-size: cover;
+    color: black;
+
+}
+
+#card-m-2 {
+    transition-property: all;
+    transition-duration: 500ms;
+}
+
+#card-m-2:hover {
+    scale: 1.1;
+}
+
+#card-3 {
+    width: 370px;
+    height: 150px;
+    background-color: mediumpurple;
+    background-image: url("/img/profit.jpg");
+    background-size: cover;
+    color: black;
+
+}
+
+#card-m-3 {
+    transition-property: all;
+    transition-duration: 500ms;
+}
+
+#card-m-3:hover {
+    scale: 1.1;
+}
+
+#card-4 {
+    width: 400px;
+    height: 150px;
+    background-color: lightcoral;
+    background-image: url("/img/orders.jpg");
+    background-size: cover;
+    color: black;
+
+}
+
+#card-m-4 {
+    transition-property: all;
+    transition-duration: 500ms;
+}
+
+#card-m-4:hover {
+    scale: 1.1;
+}

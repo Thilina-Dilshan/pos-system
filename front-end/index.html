@@ -14,7 +14,6 @@
     <script defer src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script defer src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="module" src="js/main.js"></script>
-    <script defer type="module" src="js/home.js"></script>
 </head>
 <body class="container-xl gx-0 border-end border-start">
 <nav>
@@ -94,6 +93,62 @@
                 </div>
                 <a href="./manage-items.html" class="nav-link">
                     <button style="height: 100%" id="btn-1" class="btn btn-light" data-bs-toggle="modal"
+                            data-bs-target="#low-stock-modal">Show More >
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Customer div-->
+        <div id="card-m-2" class="rounded d-flex flex-column justify-content-center">
+            <div id="card-2" class="d-flex justify-content-between p-2">
+                <span class="material-symbols-outlined" style="font-size: 100px; color: white">group</span>
+            </div>
+            <div class="sub-div-2 p-2 d-flex justify-content-between">
+                <div class="d-flex flex-column p-2 ">
+                    <h2 id="customers" class="align-self-start">24</h2>
+                    <h3 class="card-title">Total Customers</h3>
+                </div>
+                <a href="./manage-customers.html" class="nav-link">
+                    <button style="height: 100%" id="btn-2" class="btn btn-light" data-bs-toggle="modal"
+                            data-bs-target="#low-stock-modal">Show More >
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Profit div-->
+        <div id="card-m-3" class="rounded d-flex flex-column justify-content-center">
+            <div id="card-3" class="d-flex justify-content-between p-2">
+                <span class="material-symbols-outlined" style="font-size: 100px; color: white">request_quote</span>
+
+            </div>
+            <div class="sub-div-3 p-2 d-flex justify-content-between">
+                <div class="d-flex flex-column p-2">
+                    <div class="d-flex "><h2 id="profit" class="align-self-start"> Rs 2500</h2> <h2>&nbsp</h2></div>
+                    <div class="d-flex "> <h3 id="profit-title" class="card-title align-self-start" >Daily Profit</h3> <h2>&nbsp</h2></div>
+                </div>
+                <a href="./search-orders.html" class="nav-link">
+                    <button style="height: 100%" id="btn-3" class="btn btn-light" data-bs-toggle="modal"
+                            data-bs-target="search-order">Show More >
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Daily Order div-->
+        <div id="card-m-4" class="rounded d-flex flex-column justify-content-center">
+            <div id="card-4" class="d-flex justify-content-between p-2">
+                <span class="material-symbols-outlined" style="font-size: 100px; color: white">credit_score</span>
+
+            </div>
+            <div class="sub-div-4 p-2 d-flex justify-content-between">
+                <div class="d-flex flex-column p-2">
+                    <h2 id="orders" class="align-self-start"> 14</h2>
+                    <h3 id="order-title" class="card-title align-self-start" >Daily Orders</h3>
+                </div>
+                <a href="./search-orders.html" class="nav-link">
+                    <button style="height: 100%" id="btn-4" class="btn btn-light" data-bs-toggle="modal"
                             data-bs-target="#low-stock-modal">Show More >
                     </button>
                 </a>

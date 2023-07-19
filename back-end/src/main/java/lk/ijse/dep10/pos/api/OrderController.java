@@ -29,7 +29,6 @@ public class OrderController {
         return orderBO.placeOrder(order);
     }
 
-
     @GetMapping
     public List<OrderDTO2> getOrders(@RequestParam(value = "q", required = false) String query) throws Exception {
         if (query == null) query = "";
