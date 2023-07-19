@@ -7,10 +7,17 @@ import lk.ijse.dep10.pos.dto.CustomerDTO;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/customers")
@@ -19,6 +26,33 @@ public class CustomerController {
 
     @Autowired
     private BasicDataSource pool;
+
+    @ExceptionHandler({MethodArgumentNotValidException.class,
+            MethodArgumentTypeMismatchException.class})
+    public Map<String, Object> handleValidationExceptions(Exception exp){
+        LinkedHashMap<String, Object> errorAttributes = new LinkedHashMap<>();
+        errorAttributes.put("timestamp", LocalDateTime.now().toString());
+        errorAttributes.put("status", 400);
+        errorAttributes.put("error", HttpStatus.BAD_REQUEST);
+
+        if(exp instanceof MethodArgumentNotValidException) {
+            MethodArgumentNotValidException mExp = (MethodArgumentNotValidException) exp;
+            errorAttributes.put("message", "Data validation failed");
+            List<Map<String, Object>> errorList = new ArrayList<>();
+            for (FieldError fieldError : mExp.getFieldErrors()) {
+                Map<String, Object> error = new LinkedHashMap<>();
+                error.put("field", fieldError.getField());
+                error.put("rejected", fieldError.getRejectedValue());
+                error.put("message", fieldError.getDefaultMessage());
+                errorList.add(error);
+            }
+            errorAttributes.put("errors", errorList);
+        }else {
+            MethodArgumentTypeMismatchException mExp = (MethodArgumentTypeMismatchException) exp;
+            errorAttributes.put("message", "Invalid value for " + mExp.getName());
+        }
+        return errorAttributes;
+    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
