@@ -2,6 +2,7 @@ package lk.ijse.dep10.pos.advice;
 
 import lk.ijse.dep10.pos.business.exception.BusinessException;
 import lk.ijse.dep10.pos.business.exception.BusinessExceptionType;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -19,19 +20,21 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<Map<String, Object>> handleBusinessExceptions(BusinessException exp) {
+    public ResponseEntity<Map<String, Object>> handleBusinessExceptions(BusinessException exp){
+        log.error(exp.getMessage(), exp);
         Map<String, Object> errorAttributes = null;
-        if (exp.getType() == BusinessExceptionType.DUPLICATE_RECORD) {
+        if (exp.getType() == BusinessExceptionType.DUPLICATE_RECORD){
             errorAttributes = getCommonErrorAttributes(HttpStatus.CONFLICT);
-        } else if (exp.getType() == BusinessExceptionType.RECORD_NOT_FOUND) {
+        }else if (exp.getType() == BusinessExceptionType.RECORD_NOT_FOUND){
             errorAttributes = getCommonErrorAttributes(HttpStatus.NOT_FOUND);
-        } else if (exp.getType() == BusinessExceptionType.INTEGRITY_VIOLATION) {
+        } else if (exp.getType() == BusinessExceptionType.INTEGRITY_VIOLATION){
             errorAttributes = getCommonErrorAttributes(HttpStatus.BAD_REQUEST);
-        } else {
+        }else {
             errorAttributes = getCommonErrorAttributes(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         errorAttributes.put("message", exp.getMessage());
@@ -45,10 +48,11 @@ public class GlobalExceptionHandler {
             MethodArgumentTypeMismatchException.class
     })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, Object> handleDataValidationExceptions(Exception exp) {
+    public Map<String, Object> handleDataValidationExceptions(Exception exp){
+        log.error("Validation Failure", exp);
         Map<String, Object> errorAttributes = getCommonErrorAttributes(HttpStatus.BAD_REQUEST);
 
-        if (exp instanceof MethodArgumentNotValidException) {
+        if (exp instanceof MethodArgumentNotValidException){
             MethodArgumentNotValidException mExp = (MethodArgumentNotValidException) exp;
             List<Map<String, Object>> errorList = new ArrayList<>();
 
@@ -62,7 +66,7 @@ public class GlobalExceptionHandler {
 
             errorAttributes.put("message", "Data Validation Failed");
             errorAttributes.put("errors", errorList);
-        } else if (exp instanceof ConstraintViolationException) {
+        }else if (exp instanceof ConstraintViolationException){
             ConstraintViolationException cExp = (ConstraintViolationException) exp;
 
             List<Map<String, Object>> errorList = new ArrayList<>();
@@ -76,22 +80,24 @@ public class GlobalExceptionHandler {
 
             errorAttributes.put("message", "Data Validation Failed");
             errorAttributes.put("errors", errorList);
-        } else {
+        }else {
             MethodArgumentTypeMismatchException mExp = (MethodArgumentTypeMismatchException) exp;
             errorAttributes.put("message", "Invalid value provided for " + mExp.getName());
         }
+
         return errorAttributes;
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Throwable.class)
-    public Map<String, Object> handleExceptions(Throwable t) {
+    public Map<String, Object> handleExceptions(Throwable t){
+        log.error(t.getMessage(), t);
         Map<String, Object> errorAttributes = getCommonErrorAttributes(HttpStatus.INTERNAL_SERVER_ERROR);
         errorAttributes.put("message", t.getMessage());
         return errorAttributes;
     }
 
-    private Map<String, Object> getCommonErrorAttributes(HttpStatus status) {
+    private Map<String, Object> getCommonErrorAttributes(HttpStatus status){
         Map<String, Object> errorAttributes = new LinkedHashMap<>();
         errorAttributes.put("timestamp", LocalDateTime.now().toString());
         errorAttributes.put("status", status.value());
