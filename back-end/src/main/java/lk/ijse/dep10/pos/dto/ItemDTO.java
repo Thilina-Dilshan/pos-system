@@ -1,5 +1,6 @@
 package lk.ijse.dep10.pos.dto;
 
+import lk.ijse.dep10.pos.dto.util.ValidationGroups;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,8 +15,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemDTO {
-    @NotBlank(message = "Item code can't be empty or null")
-    @Pattern(regexp = "\\d+", message = "Invalid item code")
+    @NotBlank(message = "Item code can't be empty or null", groups = {ValidationGroups.Save.class})
+    @Pattern(regexp = "\\d+", message = "Invalid item code", groups = {ValidationGroups.Save.class})
     private String code;
     @NotBlank(message = "Description can't be empty or null")
     private String description;
