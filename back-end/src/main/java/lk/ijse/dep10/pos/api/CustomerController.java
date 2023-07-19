@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,7 +22,7 @@ public class CustomerController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public CustomerDTO saveCustomer(@RequestBody CustomerDTO customer) throws Exception {
+    public CustomerDTO saveCustomer(@RequestBody @Valid CustomerDTO customer) throws Exception {
         CustomerBO customerBO = BOFactory.getInstance().getBO(BOType.CUSTOMER, pool);
         return customerBO.saveCustomer(customer);
     }
